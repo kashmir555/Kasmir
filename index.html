@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Just One Question... 💖</title>
+
+<style>
+    body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #ff9a9e, #fad0c4);
+        height: 100vh;
+        overflow: hidden;
+        color: white;
+    }
+
+    h1 {
+        margin-top: 120px;
+        font-size: 35px;
+    }
+
+    button {
+        padding: 12px 25px;
+        font-size: 18px;
+        margin: 15px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .yes {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .no {
+        background-color: #dc3545;
+        color: white;
+        position: absolute;
+    }
+</style>
+</head>
+
+<body>
+
+<h1 id="question">Do you like surprises? 🎁</h1>
+
+<button class="yes" onclick="nextQuestion()">Yes 😊</button>
+<button class="no" id="noBtn">No 😅</button>
+
+<script>
+let questions = [
+    "Do you like surprises? 🎁",
+    "Do you enjoy spending time with me? 😊",
+    "Do I make you smile? 😄",
+    "Would you like more moments like this? 💫",
+    "Will you go out with me? 💖"
+];
+
+let index = 0;
+
+function nextQuestion() {
+    index++;
+    
+    if (index < questions.length) {
+        document.getElementById("question").innerText = questions[index];
+    } else {
+        document.body.innerHTML = "<h1 style='margin-top:150px;'>Yay!!! Fuck you 😊</h1>";
+    }
+}
+
+// Move button randomly
+function moveButton() {
+    let btn = document.getElementById("noBtn");
+    let x = Math.random() * (window.innerWidth - 100);
+    let y = Math.random() * (window.innerHeight - 50);
+
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+}
+
+// Move when mouse gets CLOSE (not just hover)
+document.addEventListener("mousemove", function(e) {
+    let btn = document.getElementById("noBtn");
+    let rect = btn.getBoundingClientRect();
+
+    let distance = Math.hypot(
+        e.clientX - (rect.left + rect.width / 2),
+        e.clientY - (rect.top + rect.height / 2)
+    );
+
+    if (distance < 120) { // if cursor is near
+        moveButton();
+    }
+});
+
+// Extra safety: if somehow clicked 😆
+document.getElementById("noBtn").addEventListener("click", function() {
+    moveButton();
+});
+</script>
+
+</body>
+</html>
